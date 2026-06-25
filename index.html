@@ -2459,7 +2459,7 @@ async function init() {
     localStorage.setItem("tnaVersion","1");
     await saveData();
   }
-  if (UPSTASH_ENABLED) { updateFirebaseStatus(true); startUpstashSync(); }
+  if (!FIREBASE_ENABLED && UPSTASH_ENABLED) { startUpstashSync(); }
   if (GDRIVE_ENABLED) startGDriveSync();
   setupStarCanvas();
   setTimeout(function(){document.getElementById("loaderOverlay").classList.add("hidden")},800);
@@ -4799,7 +4799,7 @@ document.addEventListener("DOMContentLoaded",init);
 /* === FIREBASE FIRESTORE SYNC LAYER === */
 /* Hardcoded Firebase config - no manual setup needed */
 var FIREBASE_ENABLED=false;
-var FIREBASE_CONFIG={apiKey:"AIzaSyDNYFeu0drNIXKsGnabiBtpYPEvgQyv30Q",authDomain:"quiet-gift-drtgb.firebaseapp.com",projectId:"quiet-gift-drtgb",storageBucket:"quiet-gift-drtgb.firebasestorage.app",messagingSenderId:"212159877016",appId:"1:212159877016:web:0751f6001447a4b77765ed"};
+var FIREBASE_CONFIG={apiKey:"AIzaSyCCIU-wvFxsUniRuTdwRK_R0dnB-2ouH_M",authDomain:"tna-system.firebaseapp.com",projectId:"tna-system",storageBucket:"tna-system.firebasestorage.app",messagingSenderId:"502571637811",appId:"1:502571637811:web:fb8cf65f29fd1768ab1746",measurementId:"G-TQ87T19M95"};
 var FIREBASE_APP=null;
 var FIREBASE_DB=null;
 var FIREBASE_UNSUBS=[];
@@ -4817,16 +4817,16 @@ function setupFirebase(config){
     FIREBASE_APP=firebase.initializeApp(config,"tna");
     FIREBASE_DB=firebase.firestore(FIREBASE_APP);
     FIREBASE_ENABLED=true;
-    setTimeout(function(){
-      FIREBASE_DB.collection("_tna_test").doc("_ping").set({ts:firebase.firestore.FieldValue.serverTimestamp(),_tna:true}).then(function(){
-        FIREBASE_DB.collection("_tna_test").doc("_ping").delete().catch(function(){});
-        updateFirebaseStatus(true);
-        startFirebaseSync();
-        firebasePullAll();
-      }).catch(function(e){
-        updateFirebaseStatus(false,e.message);
-      });
-    },1000);
+    // Start listeners and pull immediately — no delay
+    startFirebaseSync();
+    firebasePullAll();
+    // Background connection test
+    FIREBASE_DB.collection("_tna_test").doc("_ping").set({ts:firebase.firestore.FieldValue.serverTimestamp(),_tna:true}).then(function(){
+      FIREBASE_DB.collection("_tna_test").doc("_ping").delete().catch(function(){});
+      updateFirebaseStatus(true);
+    }).catch(function(e){
+      updateFirebaseStatus(false,e.message);
+    });
   }catch(e){console.error("Firebase init error:",e);FIREBASE_ENABLED=false}
 }
 function updateFirebaseStatus(ok,err){
