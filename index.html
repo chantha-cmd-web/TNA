@@ -12,6 +12,7 @@
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap");
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg-deep:#0a1628;--bg-card:rgba(255,255,255,0.07);--bg-sidebar:rgba(8,20,48,0.95);
@@ -432,6 +433,8 @@ body{position:relative}
 .score-input-lg{width:90px!important;padding:14px 10px!important;font-size:22px!important;font-weight:800!important;text-align:center!important;border:2.5px solid #2563eb!important;border-radius:14px!important;outline:none!important;background:linear-gradient(135deg,#fff,#f8faff)!important;color:#000!important;transition:all 0.3s ease!important;box-shadow:0 2px 12px rgba(37,99,235,0.1)!important}
 .score-input-lg:focus{border-color:#2563eb!important;box-shadow:0 0 0 6px rgba(37,99,235,0.2),0 4px 20px rgba(37,99,235,0.15)!important}
 .score-input-sm{width:70px!important;padding:10px 8px!important;font-size:16px!important;font-weight:700!important;text-align:center!important;border:2px solid #2563eb!important;border-radius:10px!important;outline:none!important;background:#fff!important;color:#000!important;transition:all 0.2s ease!important}
+.eval-criteria-text{font-family:'Khmer OS Battambang','Battambang','Kantumruy Pro',sans-serif!important}
+#dashSelfEval .eval-card,#dashMgrEval .eval-card,#page-self-evaluation .eval-card,#page-managerial-evaluation .eval-card{font-family:'Khmer OS Battambang','Battambang','Kantumruy Pro',sans-serif!important}
 .modal-content{background:#fff;border:1px solid #e2e2ea;border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,0.12);color:#000}
 .modal-header{border-bottom:1px solid #e2e2ea;padding:20px 24px}
 .modal-header .modal-title{color:#1a1a2e;font-weight:700;font-size:16px}
@@ -852,7 +855,7 @@ pre{background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:14p
             </div>
             <div>
               <h6 style="font-weight:800;font-size:20px;margin:0;color:#000;letter-spacing:-0.3px">Self-Evaluation</h6>
-              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Enter score manually for each criterion (1-5)</small>
+              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Enter score manually for each criterion (1-5, step 0.5)</small>
             </div>
             <div style="margin-left:auto;display:flex;align-items:center;gap:16px">
               <div style="text-align:right">
@@ -929,7 +932,7 @@ pre{background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:14p
             </div>
             <div>
               <h6 style="font-weight:800;font-size:20px;margin:0;color:#000;letter-spacing:-0.3px">Managerial-Evaluation</h6>
-              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Enter score manually for each criterion (1-5)</small>
+              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Enter score manually for each criterion (1-5, step 0.5)</small>
             </div>
             <div style="margin-left:auto;display:flex;align-items:center;gap:16px">
               <div style="text-align:right">
@@ -1017,7 +1020,7 @@ pre{background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:14p
             </div>
             <div>
               <h6 style="font-weight:800;font-size:20px;margin:0;color:#000;letter-spacing:-0.3px">Competency Self-Assessment</h6>
-              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Click a rating button, use the slider, or type a score (1-5)</small>
+              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Click a rating button, use the slider, or type a score (1-5, step 0.5)</small>
             </div>
             <div style="margin-left:auto;display:flex;align-items:center;gap:16px;flex-shrink:0">
               <div style="text-align:right">
@@ -1104,7 +1107,7 @@ pre{background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:14p
             </div>
             <div>
               <h6 style="font-weight:800;font-size:20px;margin:0;color:#000;letter-spacing:-0.3px">Managerial Competency Assessment</h6>
-              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Manager rates employee on each criterion (1-5)</small>
+              <small style="font-size:13px;color:rgba(0,0,0,0.55);font-weight:500">Manager rates employee on each criterion (1-5, step 0.5)</small>
             </div>
             <div style="margin-left:auto;display:flex;align-items:center;gap:16px;flex-shrink:0">
               <div style="text-align:right">
@@ -1503,10 +1506,57 @@ pre{background:rgba(255,255,255,0.03);border-radius:var(--radius-sm);padding:14p
     <div class="col-lg-6">
       <div class="card">
         <div class="card-body p-4">
+          <h6 style="font-weight:600;font-size:13px;margin-bottom:16px">Google Drive Sync</h6>
+          <div class="mb-3">
+            <label class="form-label">API Endpoint URL</label>
+            <input class="form-control" id="settingsGdriveUrl" placeholder="https://script.google.com/macros/s/.../exec">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="settingsGdriveEnabled">
+            <label class="form-check-label" for="settingsGdriveEnabled">Enable Google Drive sync</label>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="saveSettings()">Save Settings</button>
+          <button class="btn btn-outline-secondary btn-sm ms-2" onclick="testGdrive()">Test Connection</button>
+        </div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body p-4">
+          <h6 style="font-weight:600;font-size:13px;margin-bottom:16px">Upstash Redis Sync (Vercel)</h6>
+          <div class="mb-3">
+            <label class="form-label">Vercel API URL</label>
+            <input class="form-control" id="settingsUpstashUrl" placeholder="/api/sync">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Sync Token</label>
+            <input class="form-control" id="settingsUpstashToken" placeholder="tna-sync-2026" type="password">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="settingsUpstashEnabled">
+            <label class="form-check-label" for="settingsUpstashEnabled">Enable Upstash Redis sync</label>
+          </div>
+          <button class="btn btn-outline-secondary btn-sm" onclick="testUpstash()">Test Connection</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body p-4">
+          <h6 style="font-weight:600;font-size:13px;margin-bottom:16px">Real-Time Cloud Sync</h6>
+          <div style="font-size:11px;color:var(--text-dim);margin-bottom:12px;padding:8px 12px;background:rgba(16,185,129,0.08);border-radius:8px;border:1px solid rgba(16,185,129,0.15)">
+            <strong style="color:#059669">Auto-sync active</strong> — All devices share data automatically via cloud API. No setup needed.
+            <span id="fbStatus" style="display:none;margin-left:8px"></span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-outline-primary btn-sm" onclick="forceSync()">Force Sync Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-3">
+        <div class="card-body p-4">
           <h6 style="font-weight:600;font-size:13px;margin-bottom:16px">About</h6>
           <p style="font-size:12px;color:var(--text-dim);margin-bottom:4px">HRIS TNA System v2.0</p>
           <p style="font-size:12px;color:var(--text-dim);margin-bottom:4px">Training Needs Analysis & Learning Management</p>
-          <p style="font-size:12px;color:var(--text-dim)">Powered by Chart.js, Bootstrap 5, Google Apps Script</p>
+          <p style="font-size:12px;color:var(--text-dim)">Powered by Chart.js, Bootstrap 5, Firebase Firestore</p>
         </div>
       </div>
     </div>
@@ -1756,6 +1806,561 @@ var DEFAULT_USERS = [
 var appUsers = [];
 var editingUserId = null;
 
+/* === GOOGLE DRIVE SYNC LAYER === */
+(function(){
+  var g=JSON.parse(localStorage.getItem("tnaGdrive")||"{}");
+  var GU=g.url||localStorage.getItem("tnaGDriveUrl")||"https://script.google.com/macros/s/AKfycbz1TyILzmpEJLDm4gHYi9fg9jKiiq-KQh63vt4etH3bPvPIMoSmNyW1t04oaBxrN8f5VQ/exec";
+  var GE=g.enabled!==undefined?g.enabled:!!GU;
+  GDRIVE_API_URL=GU; GDRIVE_ENABLED=GE;
+})();
+var GDRIVE_TOKEN = "tna-sync-2026";
+var GDRIVE_POLL_INTERVAL = 10000; // 10 seconds
+var gdrivePollTimer = null;
+var gdriveLastVersion = 0;
+var gdriveSyncInProgress = false;
+
+function setGDriveUrl(url) {
+  GDRIVE_API_URL = url;
+  GDRIVE_ENABLED = !!url;
+  try { if (url) localStorage.setItem("tnaGDriveUrl", url); else localStorage.removeItem("tnaGDriveUrl"); } catch(e) {}
+}
+
+async function gdriveFetch(action, method, body) {
+  if (!GDRIVE_ENABLED || !GDRIVE_API_URL) return null;
+  try {
+    var url = GDRIVE_API_URL + "?action=" + action + "&token=" + GDRIVE_TOKEN;
+    var opts = {method: method || "GET"};
+    if (body) opts.body = JSON.stringify(body);
+    opts.headers = {"Content-Type": "application/json"};
+    var resp = await fetch(url, opts);
+    if (!resp.ok) return null;
+    return await resp.json();
+  } catch(e) { return null; }
+}
+
+async function gdriveReadAll() {
+  var result = await gdriveFetch("readAll", "GET");
+  if (result && result.data !== undefined) return result;
+  // fallback: read each key individually
+  var keys = ["data","users","campusEval","settings","telegram"];
+  var out = {};
+  for (var i = 0; i < keys.length; i++) {
+    var r = await gdriveFetch("read&key=" + keys[i], "GET");
+    if (r) out[keys[i]] = r.value;
+  }
+  if (Object.keys(out).length > 0) return out;
+  return null;
+}
+
+async function gdriveWrite(key, value) {
+  return await gdriveFetch("write&key=" + key, "POST", {key: key, value: value});
+}
+
+async function gdriveWriteBatch(obj) {
+  return await gdriveFetch("writeBatch", "POST", obj);
+}
+
+async function gdriveCheckVersion() {
+  var r = await gdriveFetch("readVersion", "GET");
+  if (r && r.version !== undefined) return r.version;
+  return null;
+}
+
+/* Sync: push local data to Google Drive */
+async function gdrivePushAll() {
+  if (!GDRIVE_ENABLED || gdriveSyncInProgress) return false;
+  gdriveSyncInProgress = true;
+  try {
+    var batch = {
+      data: {employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications},
+      users: appUsers,
+      campusEval: campusData,
+      settings: JSON.parse(localStorage.getItem("tnaSettings")||"{}"),
+      telegram: JSON.parse(localStorage.getItem("tnaTelegram")||"{}")
+    };
+    var r = await gdriveWriteBatch(batch);
+    if (r && r.version !== undefined) gdriveLastVersion = r.version;
+    return true;
+  } catch(e) { return false; }
+  finally { gdriveSyncInProgress = false; }
+}
+
+/* Sync: pull remote data to local */
+async function gdrivePullAll() {
+  if (!GDRIVE_ENABLED || gdriveSyncInProgress) return false;
+  gdriveSyncInProgress = true;
+  try {
+    var remote = await gdriveReadAll();
+    if (!remote) return false;
+    if (remote.data) {
+      var d = remote.data;
+      employees = d.employees || employees;
+      assessments = d.assessments || assessments;
+      trainingPrograms = d.training || trainingPrograms;
+      recommendations = d.recommendations || recommendations;
+      activityLog = d.activityLog || activityLog;
+      notifications = d.notifications || notifications;
+    }
+    if (remote.users) appUsers = remote.users;
+    if (remote.campusEval) {
+      Object.keys(remote.campusEval).forEach(function(c) {
+        if (!campusData[c]) campusData[c] = {};
+        Object.keys(remote.campusEval[c]).forEach(function(k) { campusData[c][k] = remote.campusEval[c][k]; });
+      });
+    }
+    if (remote.version !== undefined) gdriveLastVersion = remote.version;
+    return true;
+  } catch(e) { return false; }
+  finally { gdriveSyncInProgress = false; }
+}
+
+/* Poll for remote changes */
+async function gdrivePoll() {
+  if (!GDRIVE_ENABLED) return;
+  try {
+    var v = await gdriveCheckVersion();
+    if (v !== null && v !== gdriveLastVersion) {
+      var pulled = await gdrivePullAll();
+      if (pulled) {
+        renderAll();
+        renderUsers();
+        autoCountKPIs();
+        showGdriveSyncStatus("Synced with Google Drive");
+      }
+    }
+  } catch(e) {}
+}
+
+function startGDriveSync() {
+  stopGDriveSync();
+  if (!GDRIVE_ENABLED) return;
+  gdrivePollTimer = setInterval(gdrivePoll, GDRIVE_POLL_INTERVAL);
+}
+
+function stopGDriveSync() {
+  if (gdrivePollTimer) { clearInterval(gdrivePollTimer); gdrivePollTimer = null; }
+}
+
+function showGdriveSyncStatus(msg) {
+  var el = document.getElementById("gdriveSyncStatus");
+  if (!el) return;
+  el.textContent = msg || "Connected";
+  el.style.color = "#10b981";
+  el.style.opacity = "1";
+  setTimeout(function() { if (el) el.style.opacity = "0.6"; }, 3000);
+}
+
+/* ─── MODIFIED DATA FUNCTIONS ─── */
+/* Modified: loadData with Firebase/Upstash/GDrive sync */
+async function loadData() {
+  // If Firebase enabled, pull from Firestore first (real-time sync)
+  if (FIREBASE_ENABLED) {
+    await firebaseLoadData();
+    if (employees.length || Object.keys(campusData).some(function(c){return Object.values(campusData[c]).some(function(v){return Array.isArray(v)&&v.some(function(s){return s>0})})})) return;
+  }
+  // If Upstash enabled, pull from remote
+  if (UPSTASH_ENABLED) {
+    await upstashLoadData();
+    if (employees.length || Object.keys(campusData).some(function(c){return Object.values(campusData[c]).some(function(v){return Array.isArray(v)&&v.some(function(s){return s>0})})})) return;
+  }
+  // If GDrive enabled, pull from remote
+  if (GDRIVE_ENABLED) {
+    try {
+      var remote = await gdriveReadAll();
+      if (remote && remote.data) {
+        var d = remote.data;
+        employees = d.employees||[]; assessments = d.assessments||[]; trainingPrograms = d.training||[]; recommendations = d.recommendations||[]; activityLog = d.activityLog||[]; notifications = d.notifications||[];
+        if (remote.users) appUsers = remote.users;
+        if (remote.campusEval) {
+          Object.keys(remote.campusEval).forEach(function(c) {
+            if (!campusData[c]) campusData[c] = {};
+            Object.keys(remote.campusEval[c]).forEach(function(k) { campusData[c][k] = remote.campusEval[c][k]; });
+          });
+        }
+        if (remote.version !== undefined) gdriveLastVersion = remote.version;
+        return;
+      }
+    } catch(e) {}
+  }
+  // Fallback to localStorage
+  try { var d = JSON.parse(localStorage.getItem("tnaData"));
+    if (d) { employees = d.employees||[]; assessments = d.assessments||[]; trainingPrograms = d.training||[]; recommendations = d.recommendations||[]; activityLog = d.activityLog||[]; notifications = d.notifications||[]; }
+  } catch(e) {}
+}
+
+/* Modified: saveData with Firebase/Upstash/GDrive sync */
+async function saveData() {
+  try { localStorage.setItem("tnaData",JSON.stringify({employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications})); } catch(e) {}
+  if (FIREBASE_ENABLED) {
+    await firebaseSaveData();
+  } else if (UPSTASH_ENABLED) {
+    await upstashSaveData();
+  } else if (GDRIVE_ENABLED) {
+    await gdrivePushAll();
+    startGDriveSync();
+  }
+  autoCountKPIs();
+}
+
+/* Modified: loadUsers */
+async function loadUsers() {
+  if (FIREBASE_ENABLED && FIREBASE_DB) {
+    try {
+      var snap = await FIREBASE_DB.collection("tna_users").doc("main").get();
+      if (snap.exists) {
+        var val = snap.get("value");
+        if (val && val.items && val.items.length) { appUsers = val.items; }
+      }
+    } catch(e) {}
+  }
+  if ((!appUsers || !appUsers.length) && UPSTASH_ENABLED) {
+    try {
+      var r = await upstashFetch("read&key=users", "GET");
+      if (r && r.value && r.value.length) { appUsers = r.value; }
+    } catch(e) {}
+  }
+  if ((!appUsers || !appUsers.length) && GDRIVE_ENABLED) {
+    try {
+      var r = await gdriveFetch("read&key=users", "GET");
+      if (r && r.value && r.value.length) { appUsers = r.value; }
+    } catch(e) {}
+  }
+  if (!appUsers || !appUsers.length) {
+    try{var d=JSON.parse(localStorage.getItem("tnaUsers"));if(d&&d.length)appUsers=d;else appUsers=[];}catch(e){appUsers=[];}
+  }
+  DEFAULT_USERS.forEach(function(du){if(!appUsers.find(function(u){return u.id===du.id}))appUsers.push(JSON.parse(JSON.stringify(du)))});
+  staffData.forEach(function(s){if(!appUsers.find(function(u){return u.id===s.id}))appUsers.push({id:s.id,name:s.name,password:"tna123",role:"user",roleLabel:"User"})});
+  saveUsers();
+}
+
+/* Modified: saveUsers */
+async function saveUsers() {
+  try{localStorage.setItem("tnaUsers",JSON.stringify(appUsers))}catch(e){}
+  if (FIREBASE_ENABLED) await firebaseWriteDoc("tna_users",{items:appUsers});
+  else if (UPSTASH_ENABLED) await upstashWrite("users", appUsers);
+  else if (GDRIVE_ENABLED) await gdriveWrite("users", appUsers);
+}
+
+/* Modified: saveEvalData */
+async function saveEvalData() {
+  try { localStorage.setItem("tnaCampusEvalData", JSON.stringify(campusData)); } catch(e) {}
+  if (FIREBASE_ENABLED) await firebaseWriteDoc("tna_campusEval",{items:campusData});
+  else if (UPSTASH_ENABLED) await upstashWrite("campusEval", campusData);
+  else if (GDRIVE_ENABLED) await gdriveWrite("campusEval", campusData);
+  autoCountKPIs();
+}
+
+/* Modified: loadEvalData */
+async function loadEvalData() {
+  if (FIREBASE_ENABLED) {
+    try {
+      var snap = await FIREBASE_DB.collection("tna_campusEval").doc("main").get();
+      if (snap.exists) {
+        var val = snap.get("value");
+        if (val && val.items) {
+          Object.keys(val.items).forEach(function(c) {
+            if (!campusData[c]) campusData[c] = {};
+            Object.keys(val.items[c]).forEach(function(k) { campusData[c][k] = val.items[c][k]; });
+          });
+          autoCountKPIs(); return;
+        }
+      }
+    } catch(e) {}
+  }
+  if (UPSTASH_ENABLED) {
+    try {
+      var r = await upstashFetch("read&key=campusEval", "GET");
+      if (r && r.value) {
+        Object.keys(r.value).forEach(function(c) {
+          if (!campusData[c]) campusData[c] = {};
+          Object.keys(r.value[c]).forEach(function(k) { campusData[c][k] = r.value[c][k]; });
+        });
+        autoCountKPIs(); return;
+      }
+    } catch(e) {}
+  }
+  if (GDRIVE_ENABLED) {
+    try {
+      var r = await gdriveFetch("read&key=campusEval", "GET");
+      if (r && r.value) {
+        Object.keys(r.value).forEach(function(c) {
+          if (!campusData[c]) campusData[c] = {};
+          Object.keys(r.value[c]).forEach(function(k) { campusData[c][k] = r.value[c][k]; });
+        });
+        autoCountKPIs(); return;
+      }
+    } catch(e) {}
+  }
+  try {
+    var d = JSON.parse(localStorage.getItem("tnaCampusEvalData"));
+    if (d) {
+      Object.keys(d).forEach(function(c) {
+        if (!campusData[c]) campusData[c] = {};
+        Object.keys(d[c]).forEach(function(k) { campusData[c][k] = d[c][k]; });
+      });
+    }
+  } catch(e) {}
+  autoCountKPIs();
+}
+
+/* Modified: saveSettings */
+async function saveSettings() {
+  var n=document.getElementById("settingsSystemName").value;
+  var t=document.getElementById("settingsThreshold").value;
+  var a=document.getElementById("settingsAutoRec").value;
+  localStorage.setItem("tnaSettings",JSON.stringify({name:n,threshold:t,autoRec:a}));
+  var tk=document.getElementById("settingsTelegramToken").value.trim();
+  var ci=document.getElementById("settingsTelegramChatId").value.trim();
+  localStorage.setItem("tnaTelegram",JSON.stringify({token:tk,chatId:ci}));
+  var gu=document.getElementById("settingsGdriveUrl").value.trim();
+  var ge=document.getElementById("settingsGdriveEnabled").checked;
+  localStorage.setItem("tnaGdrive",JSON.stringify({url:gu,enabled:ge}));
+  GDRIVE_API_URL=gu||GDRIVE_API_URL; GDRIVE_ENABLED=ge&&!!GDRIVE_API_URL;
+
+  var uu=document.getElementById("settingsUpstashUrl").value.trim();
+  var ut=document.getElementById("settingsUpstashToken").value.trim();
+  var ue=document.getElementById("settingsUpstashEnabled").checked;
+  stopUpstashSync();
+  setUpstashConfig(uu,ut,ue);
+  if (UPSTASH_ENABLED) {
+    startUpstashSync();
+    await upstashWriteBatch({settings:{name:n,threshold:t,autoRec:a},telegram:{token:tk,chatId:ci}});
+  }
+  stopGDriveSync();
+  GDRIVE_API_URL=gu||GDRIVE_API_URL; GDRIVE_ENABLED=ge&&!!GDRIVE_API_URL;
+  if (GDRIVE_ENABLED) {
+    startGDriveSync();
+    await gdriveWriteBatch({settings:{name:n,threshold:t,autoRec:a},telegram:{token:tk,chatId:ci}});
+  }
+
+  addActivity("Settings saved","edit");alert("Settings saved.");
+}
+
+/* Modified: clearAllData */
+function clearAllData() {
+  confirmCallback = function() {
+    try {
+      localStorage.removeItem("tnaData"); localStorage.removeItem("tnaCampusEvalData");
+      employees=[];assessments=[];trainingPrograms=[];recommendations=[];activityLog=[];notifications=[];
+      activityLog=[{msg:"Data reset",type:"info",time:new Date().toLocaleString()}];
+      notifications=[{title:"Reset Complete",msg:"All data has been cleared.",read:false,time:new Date().toLocaleString()}];
+      campusData = {};
+      campusList.forEach(function(c) {
+        campusData[c] = { ta_self: [0,0,0,0,0,0,0,0,0,0], ta_mgr: [0,0,0,0,0,0,0,0,0,0], frontline_self: [0,0,0,0,0,0,0,0,0,0], frontline_mgr: [0,0,0,0,0,0,0,0,0,0] };
+      });
+      scoreMap = { ta_self: [0,0,0,0,0,0,0,0,0,0], ta_mgr: [0,0,0,0,0,0,0,0,0,0], frontline_self: [0,0,0,0,0,0,0,0,0,0], frontline_mgr: [0,0,0,0,0,0,0,0,0,0] };
+      saveData();
+      saveEvalData();
+      if (FIREBASE_ENABLED && FIREBASE_DB) {
+        try{
+          FIREBASE_DB.collection("tna_data").doc("main").delete();
+          FIREBASE_DB.collection("tna_users").doc("main").delete();
+          FIREBASE_DB.collection("tna_campusEval").doc("main").delete();
+        }catch(e){}
+      }
+      if (UPSTASH_ENABLED) {
+        upstashFetch("reset", "POST", {});
+        upstashLastVersion = 0;
+      }
+      if (GDRIVE_ENABLED) {
+        gdriveFetch("reset", "POST", {});
+        gdriveLastVersion = 0;
+      }
+    } catch(e) { console.error("Clear error:", e); }
+    renderAll();
+    if (typeof bootstrap !== "undefined") {
+      var modal = bootstrap.Modal.getInstance(document.getElementById("confirmModal"));
+      if (modal) modal.hide();
+    }
+    alert("All data has been cleared successfully.");
+  };
+  document.getElementById("confirmTitle").textContent="Clear All Data?";
+  document.getElementById("confirmMessage").textContent="This will permanently delete all employees, assessments, and training records from local and remote storage.";
+  new bootstrap.Modal(document.getElementById("confirmModal")).show();
+}
+
+/* ─── END GOOGLE DRIVE SYNC LAYER ─── */
+
+/* === UPSTASH REDIS SYNC LAYER (via Vercel API) === */
+(function(){
+  var u=JSON.parse(localStorage.getItem("tnaUpstash")||"{}");
+  UPSTASH_API_URL=u.url||"/api/sync";
+  UPSTASH_ENABLED=u.enabled!==undefined?u.enabled:false;
+  UPSTASH_TOKEN=u.token||"tna-sync-2026";
+  UPSTASH_POLL_INTERVAL=5000; // 5 seconds for near real-time
+})();
+var UPSTASH_API_URL="/api/sync";
+var UPSTASH_ENABLED=true;
+var UPSTASH_TOKEN="tna-sync-2026";
+var UPSTASH_POLL_INTERVAL=5000;
+var upstashPollTimer=null;
+var upstashLastVersion=0;
+var upstashSyncInProgress=false;
+
+function setUpstashConfig(url,token,enabled){
+  UPSTASH_API_URL=url||"/api/sync";
+  UPSTASH_TOKEN=token||"tna-sync-2026";
+  UPSTASH_ENABLED=enabled&&!!UPSTASH_API_URL;
+  try{localStorage.setItem("tnaUpstash",JSON.stringify({url:UPSTASH_API_URL,token:UPSTASH_TOKEN,enabled:UPSTASH_ENABLED}))}catch(e){}
+}
+
+async function upstashFetch(action,method,body){
+  if(!UPSTASH_ENABLED||!UPSTASH_API_URL)return null;
+  try{
+    var url=UPSTASH_API_URL+"?action="+encodeURIComponent(action)+"&token="+UPSTASH_TOKEN;
+    var opts={method:method||"GET"};
+    if(body)opts.body=JSON.stringify(body);
+    opts.headers={"Content-Type":"application/json"};
+    var resp=await fetch(url,opts);
+    if(!resp.ok)return null;
+    return await resp.json();
+  }catch(e){return null;}
+}
+
+async function upstashReadAll(){
+  var result=await upstashFetch("readAll","GET");
+  if(result&&result.data!==undefined){
+    var all=result.data;
+    var flat={};
+    if(all.data)Object.assign(flat,all.data);
+    if(all.users!==undefined)flat.users=all.users;
+    if(all.campusEval!==undefined)flat.campusEval=all.campusEval;
+    if(all.settings!==undefined)flat.settings=all.settings;
+    if(all.telegram!==undefined)flat.telegram=all.telegram;
+    result.data=flat;
+    return result;
+  }
+  var keys=["data","users","campusEval","settings","telegram"];
+  var raw={};
+  for(var i=0;i<keys.length;i++){
+    var r=await upstashFetch("read&key="+keys[i],"GET");
+    if(r)raw[keys[i]]=r.value;
+  }
+  if(Object.keys(raw).length===0)return null;
+  var merged=raw.data||{};
+  if(raw.users!==undefined)merged.users=raw.users;
+  if(raw.campusEval!==undefined)merged.campusEval=raw.campusEval;
+  if(raw.settings!==undefined)merged.settings=raw.settings;
+  if(raw.telegram!==undefined)merged.telegram=raw.telegram;
+  return {data:merged,version:0};
+}
+
+async function upstashWrite(key,value){
+  return await upstashFetch("write&key="+key,"POST",{key:key,value:value});
+}
+
+async function upstashWriteBatch(obj){
+  return await upstashFetch("writeBatch","POST",obj);
+}
+
+async function upstashCheckVersion(){
+  var r=await upstashFetch("readVersion","GET");
+  if(r&&r.version!==undefined)return r.version;
+  return null;
+}
+
+async function upstashPushAll(){
+  if(!UPSTASH_ENABLED||upstashSyncInProgress)return false;
+  upstashSyncInProgress=true;
+  try{
+    var batch={
+      data:{employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications},
+      users:appUsers,
+      campusEval:campusData,
+      settings:JSON.parse(localStorage.getItem("tnaSettings")||"{}"),
+      telegram:JSON.parse(localStorage.getItem("tnaTelegram")||"{}")
+    };
+    var r=await upstashWriteBatch(batch);
+    if(r&&r.version!==undefined)upstashLastVersion=r.version;
+    return true;
+  }catch(e){return false;}
+  finally{upstashSyncInProgress=false;}
+}
+
+async function upstashPullAll(){
+  if(!UPSTASH_ENABLED||upstashSyncInProgress)return false;
+  upstashSyncInProgress=true;
+  try{
+    var remote=await upstashReadAll();
+    if(!remote)return false;
+    if(remote.data){
+      var d=remote.data;
+      employees=d.employees||employees;
+      assessments=d.assessments||assessments;
+      trainingPrograms=d.training||trainingPrograms;
+      recommendations=d.recommendations||recommendations;
+      activityLog=d.activityLog||activityLog;
+      notifications=d.notifications||notifications;
+      if(d.users)appUsers=d.users;
+      if(d.campusEval){
+        Object.keys(d.campusEval).forEach(function(c){
+          if(!campusData[c])campusData[c]={};
+          Object.keys(d.campusEval[c]).forEach(function(k){campusData[c][k]=d.campusEval[c][k];});
+        });
+      }
+      if(remote.version!==undefined)upstashLastVersion=remote.version;
+    }
+    return true;
+  }catch(e){return false;}
+  finally{upstashSyncInProgress=false;}
+}
+
+async function upstashPoll(){
+  if(!UPSTASH_ENABLED)return;
+  try{
+    var v=await upstashCheckVersion();
+    if(v!==null&&v!==upstashLastVersion){
+      var pulled=await upstashPullAll();
+      if(pulled){
+        renderAll();
+        renderUsers();
+        autoCountKPIs();
+      }
+    }
+  }catch(e){}
+}
+
+function startUpstashSync(){
+  stopUpstashSync();
+  if(!UPSTASH_ENABLED)return;
+  upstashPollTimer=setInterval(upstashPoll,UPSTASH_POLL_INTERVAL);
+}
+
+function stopUpstashSync(){
+  if(upstashPollTimer){clearInterval(upstashPollTimer);upstashPollTimer=null;}
+}
+
+/* ─── UPSTASH-AWARE DATA FUNCTIONS ─── */
+async function upstashLoadData(){
+  if(UPSTASH_ENABLED){
+    try{
+      var remote=await upstashReadAll();
+      if(remote&&remote.data){
+        var d=remote.data;
+        employees=d.employees||[];assessments=d.assessments||[];trainingPrograms=d.training||[];recommendations=d.recommendations||[];activityLog=d.activityLog||[];notifications=d.notifications||[];
+        if(d.users)appUsers=d.users;
+        if(d.campusEval){
+          Object.keys(d.campusEval).forEach(function(c){
+            if(!campusData[c])campusData[c]={};
+            Object.keys(d.campusEval[c]).forEach(function(k){campusData[c][k]=d.campusEval[c][k];});
+          });
+        }
+        if(remote.version!==undefined)upstashLastVersion=remote.version;
+        return;
+      }
+    }catch(e){}
+  }
+}
+
+async function upstashSaveData(){
+  if(UPSTASH_ENABLED){
+    await upstashPushAll();
+    startUpstashSync();
+  }
+}
+
+/* ─── END UPSTASH REDIS SYNC LAYER ─── */
+
 /* === KHMER DATE HELPERS === */
 var khmerDigits=['០','១','២','៣','៤','៥','៦','៧','៨','៩'];
 var khmerDays=['អាទិត្យ','ច័ន្ទ','អង្គារ','ពុធ','ព្រហស្បតិ៍','សុក្រ','សៅរ៍'];
@@ -1825,16 +2430,8 @@ function initDateDisplay(){
   typewriterEffect(khmerEl,khmerText,35,cursorEl);
 }
 
-function loadUsers(){
-  try{var d=JSON.parse(localStorage.getItem("tnaUsers"));if(d&&d.length)appUsers=d;else appUsers=[];}catch(e){appUsers=[];}
-  DEFAULT_USERS.forEach(function(du){if(!appUsers.find(function(u){return u.id===du.id}))appUsers.push(JSON.parse(JSON.stringify(du)))});
-  staffData.forEach(function(s){if(!appUsers.find(function(u){return u.id===s.id}))appUsers.push({id:s.id,name:s.name,password:"tna123",role:"user",roleLabel:"User"})});
-  saveUsers();
-}
-function saveUsers(){try{localStorage.setItem("tnaUsers",JSON.stringify(appUsers))}catch(e){}}
-
-function init() {
-  loadData();loadUsers();loadEvalData();
+async function init() {
+  await loadData(); await loadUsers(); await loadEvalData();
   if (!localStorage.getItem("tnaVersion")) {
     employees = []; assessments = []; trainingPrograms = [];
     recommendations = [];
@@ -1860,21 +2457,12 @@ function init() {
     activityLog = [{msg:"System initialized",type:"info",time:new Date().toLocaleString()}];
     notifications = [{title:"Welcome",msg:"HRIS TNA System is ready. "+appUsers.length+" user accounts loaded.",read:false,time:new Date().toLocaleString()}];
     localStorage.setItem("tnaVersion","1");
-    saveData();
+    await saveData();
   }
+  if (UPSTASH_ENABLED) { updateFirebaseStatus(true); startUpstashSync(); }
+  if (GDRIVE_ENABLED) startGDriveSync();
   setupStarCanvas();
   setTimeout(function(){document.getElementById("loaderOverlay").classList.add("hidden")},800);
-}
-
-function loadData() {
-  try { var d = JSON.parse(localStorage.getItem("tnaData"));
-    if (d) { employees = d.employees||[]; assessments = d.assessments||[]; trainingPrograms = d.training||[]; recommendations = d.recommendations||[]; activityLog = d.activityLog||[]; notifications = d.notifications||[]; }
-  } catch(e) {}
-}
-
-function saveData() {
-  try { localStorage.setItem("tnaData",JSON.stringify({employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications})); } catch(e) {}
-  autoCountKPIs();
 }
 
 function addActivity(msg,type) {
@@ -1916,7 +2504,11 @@ function generateRecommendations() {
 function handleLogin(e) {
   e.preventDefault();
   var uid=document.getElementById("loginUserId").value.trim();
-  var pw=document.getElementById("loginPassword").value;
+  var pw=document.getElementById("loginPassword").value.trim();
+  // Ensure defaults are present even if async load failed
+  if (!appUsers.length) {
+    DEFAULT_USERS.forEach(function(du){if(!appUsers.find(function(u){return u.id===du.id}))appUsers.push(JSON.parse(JSON.stringify(du)))});
+  }
   var user=appUsers.find(function(u){return u.id===uid&&u.password===pw});
   if(!user){alert("Invalid User ID or Password. Please try again.");return}
   var name=user.name,label=user.roleLabel,role=user.role;
@@ -1965,7 +2557,7 @@ function navigateTo(page) {
   else if (page==="assessments") renderAssessments();
   else if (page==="training") renderTraining();
   else if (page==="competency") renderHeatmap();
-  else if (page==="settings"){if(!currentUser||currentUser.role!=="admin"){navigateTo("dashboard");return}loadTelegramSettings();renderUsers()}
+  else if (page==="settings"){if(!currentUser||currentUser.role!=="admin"){navigateTo("dashboard");return}loadSettings();renderUsers()}
   if (window.innerWidth<992) document.getElementById("sidebar").classList.remove("show");
 }
 
@@ -2445,7 +3037,8 @@ function getGapReportData() {
       var top3 = combined.slice(0,3);
       var criteria = evalCriteria[pos] || [];
       var topSkills = top3.map(function(t){
-        var name = criteria[t.idx] || "Skill "+(t.idx+1);
+        var c = criteria[t.idx];
+        var name = (c&&c.en)||"Skill "+(t.idx+1);
         return name.substring(0,60)+(name.length>60?"...":"")+" ("+t.score+"/5)";
       });
       report.push({
@@ -2537,8 +3130,7 @@ function importData(event) {
             else if (pos.indexOf("Frontline") >= 0 || pos.indexOf("frontline") >= 0 || pos === "frontline") posKey = "frontline";
             if (!posKey || !campusData[campus]) return;
             var avgScore = row.avgScore || 0;
-            var perSkill = Math.round(avgScore / 10);
-            if (perSkill > 5) perSkill = 5;
+            var perSkill = Math.min(avgScore / 10, 5);
             var scores = [perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill];
             campusData[campus][posKey + "_self"] = scores.slice();
             campusData[campus][posKey + "_mgr"] = scores.slice();
@@ -2547,7 +3139,7 @@ function importData(event) {
           saveEvalData();
           addActivity("Imported gap report from " + f.name + " (" + imported + " entries)", "import");
           renderAll();
-          alert("Gap report imported! Restored " + imported + " campus/position entries to evaluation data.");
+          alert("Gap report imported from " + ext.toUpperCase() + "! Restored " + imported + " campus/position entries.");
           return;
         }
 
@@ -2602,10 +3194,11 @@ function importData(event) {
             if (pos.indexOf("Teacher") >= 0 || pos.indexOf("Nanny") >= 0 || pos === "ta") posKey = "ta";
             else if (pos.indexOf("Frontline") >= 0 || pos.indexOf("frontline") >= 0 || pos === "frontline") posKey = "frontline";
             if (!posKey || !campusData[campus]) continue;
-            var scoreStr = cols[sIdx] ? cols[sIdx].replace(/[^0-9]/g, "") : "0";
-            var avgScore = parseInt(scoreStr) || 0;
-            var perSkill = Math.round(avgScore / 10);
+            var scoreStr = cols[sIdx] ? cols[sIdx].trim() : "0";
+            var avgScore = parseFloat(scoreStr) || 0;
+            var perSkill = avgScore / 10;
             if (perSkill > 5) perSkill = 5;
+            if (perSkill < 0) perSkill = 0;
             var scores = [perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill, perSkill];
             campusData[campus][posKey + "_self"] = scores.slice();
             campusData[campus][posKey + "_mgr"] = scores.slice();
@@ -2711,14 +3304,14 @@ function exportExcel() {
   if(confirm("Share this report to Telegram?")){setTimeout(function(){shareTelegramFile("\uFEFF"+csv,fName+".csv","text/csv")},300)}
 }
 
-function clearAllData() {
-  confirmCallback=function(){localStorage.removeItem("tnaData");localStorage.removeItem("tnaCampusEvalData");employees=[];assessments=[];trainingPrograms=[];recommendations=[];activityLog=[];notifications=[];activityLog=[{msg:"Data reset",type:"info",time:new Date().toLocaleString()}];notifications=[{title:"Reset Complete",msg:"All data has been cleared.",read:false,time:new Date().toLocaleString()}];saveData();renderAll();bootstrap.Modal.getInstance(document.getElementById("confirmModal")).hide();};
-  document.getElementById("confirmTitle").textContent="Clear All Data?";
-  document.getElementById("confirmMessage").textContent="This will permanently delete all employees, assessments, and training records.";
+
+
+function showConfirm(title,msg){
+  document.getElementById("confirmTitle").textContent=title;
+  document.getElementById("confirmMessage").textContent=msg;
   new bootstrap.Modal(document.getElementById("confirmModal")).show();
 }
-
-function confirmAction(){if(confirmCallback){confirmCallback();confirmCallback=null;}}
+function confirmAction(){if(confirmCallback){var r=confirmCallback();if(r&&typeof r.then==='function'){r.then(function(){confirmCallback=null});}else{confirmCallback=null;}}}
 
 function exportFullBackup() {
   var data = {
@@ -2746,23 +3339,83 @@ function getTelegramConfig(){
   return {token:TELEGRAM_BOT_TOKEN,chatId:TELEGRAM_CHAT_ID};
 }
 
-function saveSettings(){
-  var n=document.getElementById("settingsSystemName").value;
-  var t=document.getElementById("settingsThreshold").value;
-  var a=document.getElementById("settingsAutoRec").value;
-  localStorage.setItem("tnaSettings",JSON.stringify({name:n,threshold:t,autoRec:a}));
-  var tk=document.getElementById("settingsTelegramToken").value.trim();
-  var ci=document.getElementById("settingsTelegramChatId").value.trim();
-  localStorage.setItem("tnaTelegram",JSON.stringify({token:tk,chatId:ci}));
-  addActivity("Settings saved","edit");alert("Settings saved.");
+
+
+function loadSettings(){
+  var scfg = JSON.parse(localStorage.getItem("tnaSettings")||"{}");
+  var tkEl=document.getElementById("settingsSystemName");if(tkEl)tkEl.value=scfg.name||"HRIS TNA System";
+  var thEl=document.getElementById("settingsThreshold");if(thEl)thEl.value=scfg.threshold||"70";
+  var arEl=document.getElementById("settingsAutoRec");if(arEl)arEl.value=scfg.autoRec!=="false"?"true":"false";
+  var tcfg = JSON.parse(localStorage.getItem("tnaTelegram")||"{}");
+  var tkEl2=document.getElementById("settingsTelegramToken");if(tkEl2)tkEl2.value=tcfg.token||TELEGRAM_BOT_TOKEN;
+  var ciEl=document.getElementById("settingsTelegramChatId");if(ciEl)ciEl.value=tcfg.chatId||TELEGRAM_CHAT_ID;
+  var gcfg = JSON.parse(localStorage.getItem("tnaGdrive")||"{}");
+  var guEl=document.getElementById("settingsGdriveUrl");if(guEl)guEl.value=gcfg.url||GDRIVE_API_URL;
+  var geEl=document.getElementById("settingsGdriveEnabled");if(geEl)geEl.checked=gcfg.enabled!==undefined?gcfg.enabled:GDRIVE_ENABLED;
+  var ucfg = JSON.parse(localStorage.getItem("tnaUpstash")||"{}");
+  var uuEl=document.getElementById("settingsUpstashUrl");if(uuEl)uuEl.value=ucfg.url||UPSTASH_API_URL;
+  var utEl=document.getElementById("settingsUpstashToken");if(utEl)utEl.value=ucfg.token||UPSTASH_TOKEN;
+  var ueEl=document.getElementById("settingsUpstashEnabled");if(ueEl)ueEl.checked=ucfg.enabled!==undefined?ucfg.enabled:UPSTASH_ENABLED;
+  // Firebase checkbox removed — sync always runs via cloud API
 }
 
-function loadTelegramSettings(){
-  var cfg=getTelegramConfig();
-  var tkEl=document.getElementById("settingsTelegramToken");
-  var ciEl=document.getElementById("settingsTelegramChatId");
-  if(tkEl)tkEl.value=TELEGRAM_BOT_TOKEN;
-  if(ciEl)ciEl.value=TELEGRAM_CHAT_ID;
+function testGdrive(){
+  var url=document.getElementById("settingsGdriveUrl").value.trim()||GDRIVE_API_URL;
+  if(!url){alert("Please enter a Google Drive API URL first.");return}
+  var wasEnabled=GDRIVE_ENABLED; GDRIVE_ENABLED=true;
+  gdriveFetch("readVersion", "GET").then(function(r){
+    GDRIVE_ENABLED=wasEnabled;
+    if(r&&(r.status==="ok"||r.version!==undefined)){alert("Google Drive connection successful!");}
+    else{alert("Connection failed. Check the URL and ensure the Apps Script is deployed.");}
+  }).catch(function(e){
+    GDRIVE_ENABLED=wasEnabled;
+    alert("Connection error: "+e.message);
+  });
+}
+
+function testUpstash(){
+  var url=(document.getElementById("settingsUpstashUrl").value.trim()||"/api/sync")+"?action="+encodeURIComponent("readVersion")+"&token="+encodeURIComponent(document.getElementById("settingsUpstashToken").value.trim()||"tna-sync-2026");
+  fetch(url).then(function(r){return r.json()}).then(function(r){
+    if(r&&(r.status==="ok"||r.version!==undefined)){alert("Upstash Redis connection successful!");}
+    else{alert("Connection failed. Check the API URL and token."+(r&&r.error?" ("+r.error+")":""));}
+  }).catch(function(e){alert("Connection error: "+e.message);});
+}
+
+function forceSync(){
+  if(!UPSTASH_ENABLED){
+    alert("Cloud sync is not available. Data is saved locally only.");
+    return;
+  }
+  var el=document.getElementById("fbStatus");
+  if(el)el.innerHTML='<span style="color:#f59e0b">● Syncing...</span>';
+  upstashWriteBatch({
+    data:{employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications},
+    users:appUsers,
+    campusEval:campusData
+  }).then(function(){
+    alert("Sync complete! All data pushed to cloud.");
+    if(el)el.innerHTML='<span style="color:#059669">● Live</span>';
+    setTimeout(function(){testConnection()},500);
+  }).catch(function(e){
+    alert("Sync error: "+e.message);
+    if(el)el.innerHTML='<span style="color:#dc2626">● Error: '+e.message+'</span>';
+  });
+}
+
+function testConnection(){
+  if(!UPSTASH_ENABLED)return;
+  var el=document.getElementById("fbStatus");
+  if(el)el.innerHTML='<span style="color:#f59e0b">● Testing...</span>';
+  var url=UPSTASH_API_URL+"?action="+encodeURIComponent("readVersion")+"&token="+encodeURIComponent(UPSTASH_TOKEN);
+  fetch(url).then(function(r){return r.json()}).then(function(r){
+    if(r&&r.status==="ok"){
+      if(el)el.innerHTML='<span style="color:#059669">● Live</span>';
+    }else{
+      if(el)el.innerHTML='<span style="color:#dc2626">● Error</span>';
+    }
+  }).catch(function(e){
+    if(el)el.innerHTML='<span style="color:#dc2626">● Error</span>';
+  });
 }
 
 function sendTelegramMessage(text,cb){
@@ -2966,60 +3619,71 @@ var scoreMap = {
 };
 var evalCriteria = {
   ta: [
-    "Understand child development and needs (psychosocial development)",
-    "Understanding student's behaviors and effective responses (normal development and abnormal development)",
-    "Effective discipline for difficult behaviors in young students and student's behavioral observation and responses.",
-    "Understand child's safety and prevention risk in danger",
-    "Using effective communication with young students (verbal, non-verbal and facial expression avoiding judgement on student's behaviors)",
-    "Effective ways in communicating with student's parent (verbal expression, text or answer the questions or respond to the concern)",
-    "Maintain work profession and ethics (understanding roles and responsibilities, treat the student fairly, no favorite student policy, what should do and should not do)",
-    "Acknowledge of Child Protection Policy",
-    "Self-awareness and self-regulation",
-    "Identify own triggers and stress management"
+    {kh:"1. ស្វែងយល់អំពីតម្រូវការផ្នែកចិត្តសាស្ត្រសង្គម និងការអភិវឌ្ឍន៍បំណិនសម្បទារបស់កុមារ", en:"Understanding child development and psychosocial needs"},
+    {kh:"2. ស្វែងយល់អំពីឥរិយាបទកុមារ និងការឆ្លើយតបប្រកបដោយប្រសិទ្ធភាព", en:"Understanding student's behaviors and effective responses (normal development and abnormal development)"},
+    {kh:"3. ការសង្កេតលើឥរិយាបថកុមារ និងការអនុវត្តវិន័យប្រកបដោយប្រសិទ្ធភាព", en:"Using effective discipline strategies, behavioral observation, and appropriate responses to challenging behaviors in young students"},
+    {kh:"4. ស្វែងយល់អំពីសុខមាលភាពកុមារ និងការចៀសវាងហានិភ័យណាមួយ", en:"Understanding child safety, risk prevention, and student well-being"},
+    {kh:"5. ការប្រើប្រាស់ភាសាសន្ទនា និងភាសាកាយវិការក្នុងការប្រាស្រ័យទាក់ទងជាមួយកុមារប្រកបដោយប្រសិទ្ធភាព", en:"Using effective communication with young students (verbal, non-verbal and facial expression avoiding judgement on student's behaviors)"},
+    {kh:"6. ប្រាស្រ័យទាក់ទងជាមួយអាណាព្យាបាលសិស្សប្រកបដោយប្រសិទ្ធភាព", en:"Effective ways in communicating with student's parent (verbal expression, text or answer the questions or respond to the concern)"},
+    {kh:"7. បំពេញការងារប្រកបដោយក្រមសីលធម៌ និងវិជ្ជាជីវៈ", en:"Maintaining professional ethics and understanding roles and responsibilities in working with young students"},
+    {kh:"8. គោរពតាមកិច្ចព្រមព្រៀងរបស់បុគ្គលិកចំពោះគោលនយោបាយការពារកុមារ", en:"Acknowledge of Child Protection Policy"},
+    {kh:"9. ការស្វែងយល់ និងគ្រប់គ្រងខ្លួនឯង", en:"Self-awareness and self-regulation"},
+    {kh:"10. កំណត់សម្គាល់កត្តាដែលជះឥទ្ធិពលអវិជ្ជមានខ្លួនឯង និងការគ្រប់គ្រងភាពតានតឹង", en:"Identify own triggers and stress management"}
   ],
   frontline: [
-    "Effective communication with clients (students, parents, guesses).",
-    "Effective responses to the clients (students, parents, guesses) inquiries or request",
-    "Effective listening skills (can listen to client's verbal or non-verbal message)",
-    "Maintain professional work and ethics (know clearly own roles and responsibilities)",
-    "Seeking support and professional development",
-    "Effective decision making and understand your limitation",
-    "Self-awareness and self-regulation",
-    "Identify own triggers and stress management",
-    "Effective hearing the client's concerns, and responding the right questions and refer to the right focal person.",
-    "Effective hospitality with client (college, students, and parents) with the current of both forms Sel-Evlaution and Managerial-Evaluation Form"
+    {kh:"1. ប្រាស្រ័យទាក់ទងជាមួយសិស្ស និងអតិថិជនប្រកបដោយប្រសិទ្ធភាព", en:"Effective communication with clients (students, parents, and guests)"},
+    {kh:"2. ការឆ្លើយតបជាមួយសំណូមពរ ឬចម្ងល់របស់សិស្ស និងអតិថិជនប្រកបដោយប្រសិទ្ធភាព", en:"Effective responses to clients' inquiries or requests (students, parents, and guests)"},
+    {kh:"3. ជំនាញនៃការស្ដាប់ ភាសាសន្ទនា និងភាសាកាយវិការប្រកបដោយប្រសិទ្ធភាព", en:"Effective listening skills (ability to understand clients' verbal and non-verbal messages)"},
+    {kh:"4. បំពេញការងារប្រកបដោយក្រមសីលធម៌ និងវិជ្ជាជីវៈ", en:"Maintaining professional work ethics and understanding one's roles and responsibilities"},
+    {kh:"5. ការស្វែងរកការគាំទ្រ ឬកិច្ចសហការណ៍ក្នុងការអភិវឌ្ឍភាពជាអាជីព", en:"Seeking support and opportunities for professional development"},
+    {kh:"6. ការស្វែងយល់អំពីទំហំនៃកាតព្វកិច្ចរបស់ខ្លួន និងសម្រេចចិត្តប្រកបដោយប្រសិទ្ធភាព", en:"Effective decision-making and understanding one's limitations"},
+    {kh:"7. ការស្វែងយល់ និងគ្រប់គ្រងខ្លួនឯង", en:"Self-awareness and self-regulation"},
+    {kh:"8. កំណត់សម្គាល់កត្តាដែលជះឥទ្ធិពលអវិជ្ជមានខ្លួនឯង និងការគ្រប់គ្រងភាពតានតឹង", en:"Identifying personal triggers and managing stress effectively"},
+    {kh:"9. ការស្វែងយល់អំពីកង្វល់របស់សិស្ស អតិថិជន និងការឆ្លើយតបប្រកបដោយប្រសិទ្ធភាព", en:"Effective hearing the client's concerns, and responding the right questions and refer to the right focal person."},
+    {kh:"10. អនុវត្តបដិសណ្ឋារកិច្ចជាមួយបុគ្គលិក សិស្ស និងអតិថិជនប្រកបដោយប្រសិទ្ធភាព", en:"Effective hospitality with client (college, students, and parents)"}
   ]
 };
 var evalTrainingRecs = {
   ta: [
-    {training:"Child Development & Psychology Workshop", priority:"high"},
-    {training:"Behavioral Management & Positive Discipline Techniques", priority:"high"},
-    {training:"Child Safety & Risk Prevention Training", priority:"medium"},
-    {training:"Effective Communication Skills for Educators", priority:"high"},
-    {training:"Parent-Teacher Communication Strategies", priority:"medium"},
-    {training:"Professional Ethics & Child Protection Policy", priority:"high"},
-    {training:"Self-Regulation & Stress Management Seminar", priority:"medium"},
-    {training:"Understanding Student Behavior & Response Strategies", priority:"high"},
-    {training:"Emotional Intelligence & Self-Awareness Workshop", priority:"medium"},
-    {training:"Conflict Resolution & Stress Management", priority:"medium"}
+    {training:"សិក្ខាសាលាស្តីពីការអភិវឌ្ឍន៍កុមារ និងចិត្តវិទ្យា / Child Development & Psychology Workshop", priority:"high"},
+    {training:"បច្ចេកទេសគ្រប់គ្រងឥរិយាបថ និងវិន័យវិជ្ជមាន / Behavioral Management & Positive Discipline Techniques", priority:"high"},
+    {training:"ការបណ្តុះបណ្តាលសុវត្ថិភាពកុមារ និងការទប់ស្កាត់ហានិភ័យ / Child Safety & Risk Prevention Training", priority:"medium"},
+    {training:"ជំនាញទំនាក់ទំនងប្រកបដោយប្រសិទ្ធភាពសម្រាប់អ្នកអប់រំ / Effective Communication Skills for Educators", priority:"high"},
+    {training:"យុទ្ធសាស្ត្រទំនាក់ទំនងរវាងគ្រូ និងមាតាបិតា / Parent-Teacher Communication Strategies", priority:"medium"},
+    {training:"ក្រមសីលធម៌វិជ្ជាជីវៈ និងគោលនយោបាយការពារកុមារ / Professional Ethics & Child Protection Policy", priority:"high"},
+    {training:"សិក្ខាសាលាគ្រប់គ្រងភាពតានតឹង និងការគ្រប់គ្រងខ្លួនឯង / Self-Regulation & Stress Management Seminar", priority:"medium"},
+    {training:"ការយល់ដឹងអំពីឥរិយាបថសិស្ស និងយុទ្ធសាស្ត្រឆ្លើយតប / Understanding Student Behavior & Response Strategies", priority:"high"},
+    {training:"សិក្ខាសាលាបញ្ញាអារម្មណ៍ និងការយល់ដឹងពីខ្លួនឯង / Emotional Intelligence & Self-Awareness Workshop", priority:"medium"},
+    {training:"ការដោះស្រាយជម្លោះ និងការគ្រប់គ្រងភាពតានតឹង / Conflict Resolution & Stress Management", priority:"medium"}
   ],
   frontline: [
-    {training:"Effective Communication & Client Service Excellence", priority:"high"},
-    {training:"Professional Email & Telephone Etiquette Training", priority:"medium"},
-    {training:"Active Listening Skills Workshop", priority:"high"},
-    {training:"Client Concerns & Complaint Handling", priority:"high"},
-    {training:"Workplace Professionalism & Ethics", priority:"medium"},
-    {training:"Stress Management & Resilience Building", priority:"medium"},
-    {training:"Professional Development Planning", priority:"low"},
-    {training:"Decision Making & Problem Solving Skills", priority:"high"},
-    {training:"Self-Awareness & Emotional Regulation", priority:"medium"},
-    {training:"Trigger Identification & Stress Coping Mechanisms", priority:"medium"}
+    {training:"ការទំនាក់ទំនងប្រកបដោយប្រសិទ្ធភាព និងសេវាកម្មអតិថិជនឆ្នើម / Effective Communication & Client Service Excellence", priority:"high"},
+    {training:"ការបណ្តុះបណ្តាលក្រមសីលធម៌អ៊ីមែល និងទូរស័ព្ទប្រកបដោយវិជ្ជាជីវៈ / Professional Email & Telephone Etiquette Training", priority:"medium"},
+    {training:"សិក្ខាសាលាជំនាញស្តាប់ប្រកបដោយប្រសិទ្ធភាព / Active Listening Skills Workshop", priority:"high"},
+    {training:"ការដោះស្រាយកង្វល់អតិថិជន និងពាក្យបណ្តឹង / Client Concerns & Complaint Handling", priority:"high"},
+    {training:"វិជ្ជាជីវៈ និងក្រមសីលធម៌ក្នុងការងារ / Workplace Professionalism & Ethics", priority:"medium"},
+    {training:"ការគ្រប់គ្រងភាពតានតឹង និងការកសាងភាពរឹងមាំ / Stress Management & Resilience Building", priority:"medium"},
+    {training:"ផែនការអភិវឌ្ឍន៍វិជ្ជាជីវៈ / Professional Development Planning", priority:"low"},
+    {training:"ជំនាញធ្វើការសម្រេចចិត្ត និងដោះស្រាយបញ្ហា / Decision Making & Problem Solving Skills", priority:"high"},
+    {training:"ការយល់ដឹងពីខ្លួនឯង និងការគ្រប់គ្រងអារម្មណ៍ / Self-Awareness & Emotional Regulation", priority:"medium"},
+    {training:"ការកំណត់សម្គាល់កត្តាបង្ក និងយន្តការទប់ទល់នឹងភាពតានតឹង / Trigger Identification & Stress Coping Mechanisms", priority:"medium"}
   ]
 };
 
+function getCriteriaHTML(c) {
+  if (typeof c === "string") return c;
+  return '<div style="font-family:\'Khmer OS Battambang\',\'Battambang\',\'Kantumruy Pro\',sans-serif;line-height:1.6">' +
+    '<div style="font-size:15px;font-weight:700;color:#000">' + c.kh + '</div>' +
+    '<div style="font-size:15px;font-weight:700;color:#000;margin-top:2px">' + c.en + '</div></div>';
+}
+function getCriteriaPlain(c) {
+  if (typeof c === "string") return c;
+  return c.kh + ' - ' + c.en;
+}
 function getRatingLabel(val) {
+  if (!val) return "";
   var labels = {1:"None",2:"Low",3:"Moderate",4:"High",5:"Critical"};
-  return labels[val]||"";
+  return labels[Math.round(val)]||"";
 }
 
 function renderEvalCriteria(type, containerId, totalId, scoreMap) {
@@ -3042,7 +3706,7 @@ function renderEvalCriteria(type, containerId, totalId, scoreMap) {
     html += '<div class="eval-card" style="background:linear-gradient(135deg,#fff,'+bgCard+');border:1.5px solid '+borderColor+';border-radius:16px;padding:20px 24px;margin-bottom:16px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);cursor:default;box-shadow:'+(isActive?'0 4px 16px rgba(37,99,235,0.1)':'0 4px 12px rgba(37,99,235,0.08)')+'">';
     html += '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;flex-wrap:wrap">';
     html += '<div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;font-weight:800;color:#fff;box-shadow:0 4px 10px rgba(37,99,235,0.3)">'+(i+1)+'</div>';
-    html += '<div style="flex:1;font-size:16px;font-weight:700;color:#000;line-height:1.5;letter-spacing:-0.2px;min-width:200px">'+criteria[i]+'</div>';
+    html += '<div style="flex:1;min-width:200px">'+getCriteriaHTML(criteria[i])+'</div>';
     html += '<div style="display:flex;align-items:center;gap:8px">';
     html += '<span class="score-display-pill"><span class="num">'+val+'</span><span class="den">/5</span></span>';
     html += '</div>';
@@ -3050,11 +3714,9 @@ function renderEvalCriteria(type, containerId, totalId, scoreMap) {
 
     /* === RATING CONTROLS ROW === */
     html += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-left:44px;padding-top:4px">';
-
-    /* Rating Buttons (1-5 circles) */
     html += '<div class="rating-btns">';
     for (var r = 1; r <= 5; r++) {
-      var activeClass = val === r ? 'active' : '';
+      var activeClass = Math.round(val) === r ? 'active' : '';
       html += '<button class="rating-btn-circle '+activeClass+'" onclick="setManualEvalScore(\''+type+'\','+i+','+r+')" title="'+getRatingLabel(r)+'">'+r+'<span class="tooltip-text">'+getRatingLabel(r)+'</span></button>';
     }
     html += '</div>';
@@ -3062,14 +3724,14 @@ function renderEvalCriteria(type, containerId, totalId, scoreMap) {
     /* Slider */
     html += '<div class="rating-slider-wrap">';
     html += '<div class="slider-value-badge" id="sliderBadge_'+type+'_'+i+'">'+val+'</div>';
-    html += '<input type="range" min="0" max="5" step="1" value="'+val+'" class="rating-slider" oninput="document.getElementById(\'sliderBadge_'+type+'_'+i+'\').textContent=this.value;document.getElementById(\'sliderBadge_'+type+'_'+i+'\').style.opacity=\'1\'" onchange="setManualEvalScore(\''+type+'\','+i+',this.value)" onmouseout="document.getElementById(\'sliderBadge_'+type+'_'+i+'\').style.opacity=\'0\'">';
-    html += '<div class="rating-slider-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
+    html += '<input type="range" min="0" max="5" step="0.5" value="'+val+'" class="rating-slider" oninput="document.getElementById(\'sliderBadge_'+type+'_'+i+'\').textContent=this.value;document.getElementById(\'sliderBadge_'+type+'_'+i+'\').style.opacity=\'1\'" onchange="setManualEvalScore(\''+type+'\','+i+',this.value)" onmouseout="document.getElementById(\'sliderBadge_'+type+'_'+i+'\').style.opacity=\'0\'">';
+    html += '<div class="rating-slider-labels"><span>0</span><span>0.5</span><span>1</span><span>1.5</span><span>2</span><span>2.5</span><span>3</span><span>3.5</span><span>4</span><span>4.5</span><span>5</span></div>';
     html += '</div>';
 
     /* Manual Input */
     html += '<div style="display:flex;align-items:center;gap:6px">';
     html += '<span style="font-size:10px;font-weight:600;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.3px">Manual</span>';
-    html += '<input type="number" min="1" max="5" step="1" value="'+(val||"")+'" placeholder="1-5" onchange="setManualEvalScore(\''+type+'\','+i+',this.value)" class="score-input-modern" style="border-color:'+(isActive?'var(--primary)':'rgba(37,99,235,0.2)')+'">';
+    html += '<input type="number" min="1" max="5" step="0.5" value="'+(val||"")+'" placeholder="1-5" onchange="setManualEvalScore(\''+type+'\','+i+',this.value)" class="score-input-modern" style="border-color:'+(isActive?'var(--primary)':'rgba(37,99,235,0.2)')+'">';
     html += '</div>';
 
     html += '</div>';
@@ -3113,7 +3775,7 @@ function setManualEvalScore(type, idx, val) {
   var posEl = document.getElementById(posElId);
   if (!posEl) return;
   var pos = posEl.value;
-  var num = parseInt(val) || 0;
+  var num = parseFloat(val) || 0;
   if (num < 1) num = 0;
   if (num > 5) num = 5;
   scoreMap[pos+"_"+type][idx] = num;
@@ -3160,7 +3822,7 @@ function renderSESection() {
     html += '<div class="eval-card" style="background:linear-gradient(135deg,#fff,'+bgCard+');border:1.5px solid '+borderColor+';border-radius:16px;padding:20px 24px;margin-bottom:16px;transition:all 0.3s ease;cursor:default;box-shadow:'+(isActive?'0 4px 16px rgba(37,99,235,0.1)':'0 4px 12px rgba(37,99,235,0.08)')+'">';
     html += '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;flex-wrap:wrap">';
     html += '<div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;font-weight:800;color:#fff;box-shadow:0 4px 10px rgba(37,99,235,0.3)">'+(i+1)+'</div>';
-    html += '<div style="flex:1;font-size:16px;font-weight:700;color:#000;line-height:1.5;letter-spacing:-0.2px;min-width:200px">'+criteria[i]+'</div>';
+    html += '<div style="flex:1;min-width:200px">'+getCriteriaHTML(criteria[i])+'</div>';
     html += '<div style="display:flex;align-items:center;gap:8px">';
     html += '<span class="score-display-pill"><span class="num">'+val+'</span><span class="den">/5</span></span>';
     html += '</div>';
@@ -3168,18 +3830,18 @@ function renderSESection() {
     html += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-left:44px;padding-top:4px">';
     html += '<div class="rating-btns">';
     for (var r = 1; r <= 5; r++) {
-      var activeClass = val === r ? 'active' : '';
+      var activeClass = Math.round(val) === r ? 'active' : '';
       html += '<button class="rating-btn-circle '+activeClass+'" onclick="setPageScore('+i+','+r+')" title="'+getRatingLabel(r)+'">'+r+'<span class="tooltip-text">'+getRatingLabel(r)+'</span></button>';
     }
     html += '</div>';
     html += '<div class="rating-slider-wrap">';
     html += '<div class="slider-value-badge" id="pgSliderBadge_'+i+'">'+val+'</div>';
-    html += '<input type="range" min="0" max="5" step="1" value="'+val+'" class="rating-slider" oninput="document.getElementById(\'pgSliderBadge_'+i+'\').textContent=this.value;document.getElementById(\'pgSliderBadge_'+i+'\').style.opacity=\'1\'" onchange="setPageScore('+i+',parseInt(this.value))" onmouseout="document.getElementById(\'pgSliderBadge_'+i+'\').style.opacity=\'0\'">';
-    html += '<div class="rating-slider-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
+    html += '<input type="range" min="0" max="5" step="0.5" value="'+val+'" class="rating-slider" oninput="document.getElementById(\'pgSliderBadge_'+i+'\').textContent=this.value;document.getElementById(\'pgSliderBadge_'+i+'\').style.opacity=\'1\'" onchange="setPageScore('+i+',parseFloat(this.value))" onmouseout="document.getElementById(\'pgSliderBadge_'+i+'\').style.opacity=\'0\'">';
+    html += '<div class="rating-slider-labels"><span>0</span><span>0.5</span><span>1</span><span>1.5</span><span>2</span><span>2.5</span><span>3</span><span>3.5</span><span>4</span><span>4.5</span><span>5</span></div>';
     html += '</div>';
     html += '<div style="display:flex;align-items:center;gap:6px">';
     html += '<span style="font-size:10px;font-weight:600;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.3px">Manual</span>';
-    html += '<input type="number" min="1" max="5" step="1" value="'+(val||"")+'" placeholder="1-5" onchange="setPageScore('+i+',parseInt(this.value)||0)" class="score-input-modern" style="border-color:'+(isActive?'var(--primary)':'rgba(37,99,235,0.2)')+'">';
+    html += '<input type="number" min="1" max="5" step="0.5" value="'+(val||"")+'" placeholder="1-5" onchange="setPageScore('+i+',parseFloat(this.value)||0)" class="score-input-modern" style="border-color:'+(isActive?'var(--primary)':'rgba(37,99,235,0.2)')+'">';
     html += '</div>';
     html += '</div>';
     if (isActive) {
@@ -3208,7 +3870,7 @@ function renderSESection() {
 
 function setPageScore(idx, val) {
   var pos = document.getElementById("sePosSelect").value;
-  var num = parseInt(val) || 0;
+  var num = parseFloat(val) || 0;
   if (num < 1) num = 0;
   if (num > 5) num = 5;
   _sePageScores[pos][idx] = num;
@@ -3297,7 +3959,7 @@ function renderMESection() {
     html += '<div class="eval-card" style="background:linear-gradient(135deg,#fff,'+bgCard+');border:1.5px solid '+borderColor+';border-radius:16px;padding:20px 24px;margin-bottom:16px;transition:all 0.3s ease;cursor:default;box-shadow:'+(isActive?'0 4px 16px rgba(139,92,246,0.1)':'0 4px 12px rgba(139,92,246,0.08)')+'">';
     html += '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;flex-wrap:wrap">';
     html += '<div style="width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#8b5cf6,#7c3aed);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;font-weight:800;color:#fff;box-shadow:0 4px 10px rgba(139,92,246,0.3)">'+(i+1)+'</div>';
-    html += '<div style="flex:1;font-size:16px;font-weight:700;color:#000;line-height:1.5;letter-spacing:-0.2px;min-width:200px">'+criteria[i]+'</div>';
+    html += '<div style="flex:1;min-width:200px">'+getCriteriaHTML(criteria[i])+'</div>';
     html += '<div style="display:flex;align-items:center;gap:8px">';
     html += '<span class="score-display-pill" style="background:rgba(139,92,246,0.1)"><span class="num" style="color:#7c3aed">'+val+'</span><span class="den" style="color:rgba(139,92,246,0.4)">/5</span></span>';
     html += '</div>';
@@ -3305,18 +3967,19 @@ function renderMESection() {
     html += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-left:44px;padding-top:4px">';
     html += '<div class="rating-btns">';
     for (var r = 1; r <= 5; r++) {
-      var activeClass = val === r ? 'active' : '';
-      html += '<button class="rating-btn-circle '+activeClass+'" onclick="setMEPageScore('+i+','+r+')" title="'+getRatingLabel(r)+'" style="border-color:'+(val===r?'#8b5cf6':'rgba(139,92,246,0.15)')+';'+(val===r?'background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;box-shadow:0 4px 20px rgba(139,92,246,0.35)':'')+'">'+r+'<span class="tooltip-text">'+getRatingLabel(r)+'</span></button>';
+      var activeClass = Math.round(val) === r ? 'active' : '';
+      var isActive = Math.round(val) === r;
+      html += '<button class="rating-btn-circle '+activeClass+'" onclick="setMEPageScore('+i+','+r+')" title="'+getRatingLabel(r)+'" style="border-color:'+(isActive?'#8b5cf6':'rgba(139,92,246,0.15)')+';'+(isActive?'background:linear-gradient(135deg,#8b5cf6,#7c3aed);color:#fff;box-shadow:0 4px 20px rgba(139,92,246,0.35)':'')+'">'+r+'<span class="tooltip-text">'+getRatingLabel(r)+'</span></button>';
     }
     html += '</div>';
     html += '<div class="rating-slider-wrap">';
     html += '<div class="slider-value-badge" id="meSliderBadge_'+i+'">'+val+'</div>';
-    html += '<input type="range" min="0" max="5" step="1" value="'+val+'" class="rating-slider" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa)" oninput="document.getElementById(\'meSliderBadge_'+i+'\').textContent=this.value;document.getElementById(\'meSliderBadge_'+i+'\').style.opacity=\'1\'" onchange="setMEPageScore('+i+',parseInt(this.value))" onmouseout="document.getElementById(\'meSliderBadge_'+i+'\').style.opacity=\'0\'">';
-    html += '<div class="rating-slider-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>';
+    html += '<input type="range" min="0" max="5" step="0.5" value="'+val+'" class="rating-slider" style="background:linear-gradient(90deg,#8b5cf6,#a78bfa)" oninput="document.getElementById(\'meSliderBadge_'+i+'\').textContent=this.value;document.getElementById(\'meSliderBadge_'+i+'\').style.opacity=\'1\'" onchange="setMEPageScore('+i+',parseFloat(this.value))" onmouseout="document.getElementById(\'meSliderBadge_'+i+'\').style.opacity=\'0\'">';
+    html += '<div class="rating-slider-labels"><span>0</span><span>0.5</span><span>1</span><span>1.5</span><span>2</span><span>2.5</span><span>3</span><span>3.5</span><span>4</span><span>4.5</span><span>5</span></div>';
     html += '</div>';
     html += '<div style="display:flex;align-items:center;gap:6px">';
     html += '<span style="font-size:10px;font-weight:600;text-transform:uppercase;color:rgba(0,0,0,0.3);letter-spacing:0.3px">Manual</span>';
-    html += '<input type="number" min="1" max="5" step="1" value="'+(val||"")+'" placeholder="1-5" onchange="setMEPageScore('+i+',parseInt(this.value)||0)" class="score-input-modern" style="border-color:'+(isActive?'#8b5cf6':'rgba(139,92,246,0.2)')+'">';
+    html += '<input type="number" min="1" max="5" step="0.5" value="'+(val||"")+'" placeholder="1-5" onchange="setMEPageScore('+i+',parseFloat(this.value)||0)" class="score-input-modern" style="border-color:'+(isActive?'#8b5cf6':'rgba(139,92,246,0.2)')+'">';
     html += '</div>';
     html += '</div>';
     if (isActive) {
@@ -3345,7 +4008,7 @@ function renderMESection() {
 
 function setMEPageScore(idx, val) {
   var pos = document.getElementById("mePosSelect").value;
-  var num = parseInt(val) || 0;
+  var num = parseFloat(val) || 0;
   if (num < 1) num = 0; if (num > 5) num = 5;
   _mePageScores[pos][idx] = num;
   renderMESection();
@@ -3466,23 +4129,6 @@ function autoCountKPIs() {
   el = document.getElementById("kpiCompleted"); if (el) el.textContent = completedCount;
 }
 
-function saveEvalData() {
-  try { localStorage.setItem("tnaCampusEvalData", JSON.stringify(campusData)); } catch(e) {}
-  autoCountKPIs();
-}
-
-function loadEvalData() {
-  try {
-    var d = JSON.parse(localStorage.getItem("tnaCampusEvalData"));
-    if (d) {
-      Object.keys(d).forEach(function(c) {
-        if (!campusData[c]) campusData[c] = {};
-        Object.keys(d[c]).forEach(function(k) { campusData[c][k] = d[c][k]; });
-      });
-    }
-  } catch(e) {}
-  autoCountKPIs();
-}
 
 function allSEScoresFilled() {
   var pos = document.getElementById("sePosition").value;
@@ -3840,7 +4486,7 @@ function generateTrainingRecs(pos, selfScores, mgrScores, isAllCampus) {
   }
   for (var j = 0; j < lowest3.length; j++) {
     var s = lowest3[j];
-    var skillName = criteria[s.idx] || "Skill " + (s.idx + 1);
+    var skillName = criteria[s.idx] ? getCriteriaPlain(criteria[s.idx]) : "Skill " + (s.idx + 1);
     var rec = recs[s.idx];
     var trainingName = rec ? rec.training : "General Training Program";
     var priority = rec ? rec.priority : "medium";
@@ -3851,7 +4497,7 @@ function generateTrainingRecs(pos, selfScores, mgrScores, isAllCampus) {
     html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px">';
     html += '<div style="flex:1">';
     html += '<div style="font-size:11px;color:rgba(0,0,0,0.4);margin-bottom:2px">Weak Skill #'+(j+1)+'</div>';
-    html += '<div style="font-size:13px;font-weight:600;color:#000;line-height:1.3">'+skillName+'</div>';
+    html += '<div style="font-size:13px;font-weight:600;color:#000;line-height:1.3;font-family:\'Khmer OS Battambang\',\'Battambang\',\'Kantumruy Pro\',sans-serif">'+skillName+'</div>';
     html += '</div>';
     html += '<div style="display:flex;flex-direction:column;align-items:center;gap:2px">';
     html += '<span style="font-size:20px;font-weight:800;color:'+pColor+'">'+s.score+'</span>';
@@ -3860,7 +4506,7 @@ function generateTrainingRecs(pos, selfScores, mgrScores, isAllCampus) {
     html += '</div>';
     html += '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(37,99,235,0.06);border-radius:8px;border:1px solid rgba(37,99,235,0.1);margin-top:6px">';
     html += '<svg viewBox="0 0 24 24" width="14" height="14" fill="#2563eb" style="flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 8h8"/><path d="M8 12h6"/></svg>';
-    html += '<span style="font-size:12px;font-weight:600;color:#2563eb;flex:1">'+trainingName+'</span>';
+    html += '<span style="font-size:12px;font-weight:600;color:#2563eb;flex:1;font-family:\'Khmer OS Battambang\',\'Battambang\',\'Kantumruy Pro\',sans-serif">'+trainingName+'</span>';
     html += '<span class="'+pClass+'" style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:2px 10px;border-radius:5px;background:'+pColor+'20;color:'+pColor+'">'+priority+'</span>';
     html += '</div>';
     html += '</div>';
@@ -4144,6 +4790,248 @@ function fmtDate(d) {
 function renderAll(){renderDashboard();autoCountKPIs();renderAssessments();renderTraining();renderHeatmap();renderNotifications();populateCampusDropdowns();renderDashCalendar();}
 
 document.addEventListener("DOMContentLoaded",init);
+</script>
+
+<!-- Firebase SDK for real-time cloud sync -->
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+<script>
+/* === FIREBASE FIRESTORE SYNC LAYER === */
+/* Hardcoded Firebase config - no manual setup needed */
+var FIREBASE_ENABLED=false;
+var FIREBASE_CONFIG={apiKey:"AIzaSyDNYFeu0drNIXKsGnabiBtpYPEvgQyv30Q",authDomain:"quiet-gift-drtgb.firebaseapp.com",projectId:"quiet-gift-drtgb",storageBucket:"quiet-gift-drtgb.firebasestorage.app",messagingSenderId:"212159877016",appId:"1:212159877016:web:0751f6001447a4b77765ed"};
+var FIREBASE_APP=null;
+var FIREBASE_DB=null;
+var FIREBASE_UNSUBS=[];
+var firebaseSyncInProgress=false;
+
+/* BroadcastChannel for cross-tab sync (same browser) */
+var bcChannel=null;
+try{bcChannel=new BroadcastChannel("tna_sync_v1")}catch(e){}
+
+function setupFirebase(config){
+  if(!config||!config.apiKey){FIREBASE_ENABLED=false;return}
+  FIREBASE_CONFIG=config;
+  try{if(firebase.apps.length)try{firebase.app("tna").delete()}catch(e){}}catch(e){}
+  try{
+    FIREBASE_APP=firebase.initializeApp(config,"tna");
+    FIREBASE_DB=firebase.firestore(FIREBASE_APP);
+    FIREBASE_ENABLED=true;
+    setTimeout(function(){
+      FIREBASE_DB.collection("_tna_test").doc("_ping").set({ts:firebase.firestore.FieldValue.serverTimestamp(),_tna:true}).then(function(){
+        FIREBASE_DB.collection("_tna_test").doc("_ping").delete().catch(function(){});
+        updateFirebaseStatus(true);
+        startFirebaseSync();
+        firebasePullAll();
+      }).catch(function(e){
+        updateFirebaseStatus(false,e.message);
+      });
+    },1000);
+  }catch(e){console.error("Firebase init error:",e);FIREBASE_ENABLED=false}
+}
+function updateFirebaseStatus(ok,err){
+  var el=document.getElementById("fbStatus");
+  if(!el)return;
+  if(ok){el.innerHTML='<span style="color:#059669">● Connected</span>';el.style.display='';}
+  else{el.innerHTML='<span style="color:#dc2626">● Disconnected'+(err?' ('+err+')':'')+'</span>';el.style.display='';}
+}
+
+// Auto-initialize Firebase on script load
+(function(){if(FIREBASE_CONFIG)setupFirebase(FIREBASE_CONFIG)})();
+
+function stopFirebaseSync(){
+  FIREBASE_UNSUBS.forEach(function(u){if(typeof u==="function")u()});
+  FIREBASE_UNSUBS=[];
+}
+
+function startFirebaseSync(){
+  stopFirebaseSync();
+  if(!FIREBASE_ENABLED||!FIREBASE_DB)return;
+  var collections=["tna_data","tna_users","tna_campusEval","tna_settings","tna_telegram"];
+  collections.forEach(function(col){
+    var unsub=FIREBASE_DB.collection(col).doc("main").onSnapshot(function(snap){
+      if(!snap.exists)return;
+      var action=snap.get("_action");
+      var source=snap.get("_source");
+      if(source==="broadcast")return; // Ignore our own writes
+      var val=snap.get("value");
+      if(val===undefined)return;
+      switch(col){
+        case"tna_data":
+          if(val.employees!==undefined)employees=val.employees;
+          if(val.assessments!==undefined)assessments=val.assessments;
+          if(val.training!==undefined)trainingPrograms=val.training;
+          if(val.recommendations!==undefined)recommendations=val.recommendations;
+          if(val.activityLog!==undefined)activityLog=val.activityLog;
+          if(val.notifications!==undefined)notifications=val.notifications;
+          renderAll();refreshCurrentView();break;
+        case"tna_users":
+          if(val.items!==undefined)appUsers=val.items;
+          renderUsers();refreshCurrentView();break;
+        case"tna_campusEval":
+          if(val.items!==undefined){
+            Object.keys(val.items).forEach(function(c){
+              if(!campusData[c])campusData[c]={};
+              Object.keys(val.items[c]).forEach(function(k){campusData[c][k]=val.items[c][k]});
+            });
+          }
+          renderAll();refreshCurrentView();break;
+        case"tna_settings":
+          if(val.items!==undefined){
+            try{localStorage.setItem("tnaSettings",JSON.stringify(val.items))}catch(e){}
+          }
+          break;
+        case"tna_telegram":
+          if(val.items!==undefined){
+            try{localStorage.setItem("tnaTelegram",JSON.stringify(val.items))}catch(e){}
+          }
+          break;
+      }
+    },function(err){console.error("Firestore listener error:",err)});
+    FIREBASE_UNSUBS.push(unsub);
+  });
+}
+
+async function firebaseWriteDoc(col,val){
+  if(!FIREBASE_ENABLED||!FIREBASE_DB)return false;
+  try{
+    await FIREBASE_DB.collection(col).doc("main").set({
+      value:val,
+      _action:"write",
+      _source:"direct",
+      _timestamp:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    // Broadcast to other tabs in same browser
+    if(bcChannel)try{bcChannel.postMessage({type:"tna_"+col,data:val})}catch(e){}
+    return true;
+  }catch(e){console.error("Firestore write error:",e);return false}
+}
+
+async function firebasePushAll(){
+  if(!FIREBASE_ENABLED||firebaseSyncInProgress)return;
+  firebaseSyncInProgress=true;
+  try{
+    await Promise.all([
+      firebaseWriteDoc("tna_data",{employees:employees,assessments:assessments,training:trainingPrograms,recommendations:recommendations,activityLog:activityLog,notifications:notifications}),
+      firebaseWriteDoc("tna_users",{items:appUsers}),
+      firebaseWriteDoc("tna_campusEval",{items:campusData}),
+      firebaseWriteDoc("tna_settings",{items:JSON.parse(localStorage.getItem("tnaSettings")||"{}")}),
+      firebaseWriteDoc("tna_telegram",{items:JSON.parse(localStorage.getItem("tnaTelegram")||"{}")})
+    ]);
+  }catch(e){console.error("Firebase push all error:",e)}
+  finally{firebaseSyncInProgress=false;}
+}
+
+async function firebasePullAll(){
+  if(!FIREBASE_ENABLED||!FIREBASE_DB)return;
+  try{
+    var collections=["tna_data","tna_users","tna_campusEval"];
+    for(var i=0;i<collections.length;i++){
+      var snap=await FIREBASE_DB.collection(collections[i]).doc("main").get();
+      if(!snap.exists)continue;
+      var val=snap.get("value");
+      if(!val)continue;
+      switch(collections[i]){
+        case"tna_data":
+          if(val.employees!==undefined)employees=val.employees;
+          if(val.assessments!==undefined)assessments=val.assessments;
+          if(val.training!==undefined)trainingPrograms=val.training;
+          if(val.recommendations!==undefined)recommendations=val.recommendations;
+          if(val.activityLog!==undefined)activityLog=val.activityLog;
+          if(val.notifications!==undefined)notifications=val.notifications;
+          break;
+        case"tna_users":
+          if(val.items!==undefined)appUsers=val.items;
+          break;
+        case"tna_campusEval":
+          if(val.items!==undefined){
+            Object.keys(val.items).forEach(function(c){
+              if(!campusData[c])campusData[c]={};
+              Object.keys(val.items[c]).forEach(function(k){campusData[c][k]=val.items[c][k]});
+            });
+          }
+          break;
+      }
+    }
+  }catch(e){console.error("Firebase pull all error:",e)}
+}
+
+function testFirebase(){
+  if(!FIREBASE_ENABLED||!FIREBASE_DB){alert("Firebase is not initialized.");return}
+  FIREBASE_DB.collection("_test").doc("_ping").set({ts:firebase.firestore.FieldValue.serverTimestamp(),_test:true}).then(function(){
+    alert("Firebase connection successful! Real-time sync is active.");
+    FIREBASE_DB.collection("_test").doc("_ping").delete().catch(function(){});
+  }).catch(function(e){
+    alert("Firebase error: "+e.message);
+  });
+}
+function firebaseTestConnection(){
+  testFirebase();
+}
+
+/* Refresh the currently visible page after sync data arrives */
+function refreshCurrentView(){
+  var pages=["self-evaluation","managerial-evaluation","gap-analysis","dashboard","assessments","training","competency","users"];
+  for(var i=0;i<pages.length;i++){
+    var el=document.getElementById("page-"+pages[i]);
+    if(el&&el.classList.contains("active")){
+      switch(pages[i]){
+        case"self-evaluation":renderSESection();break;
+        case"managerial-evaluation":renderMESection();break;
+        case"gap-analysis":updateGapAnalysis();break;
+        case"dashboard":renderDashboard();autoCountKPIs();break;
+        case"assessments":renderAssessments();break;
+        case"training":renderTraining();break;
+        case"competency":renderHeatmap();break;
+        case"users":renderUsers();break;
+      }
+      break;
+    }
+  }
+}
+
+/* BroadcastChannel listener for cross-tab sync */
+if(bcChannel){
+  bcChannel.onmessage=function(evt){
+    if(!evt.data||!evt.data.type)return;
+    switch(evt.data.type){
+      case"tna_tna_data":
+        var d=evt.data.data;
+        if(d.employees!==undefined)employees=d.employees;
+        if(d.assessments!==undefined)assessments=d.assessments;
+        if(d.training!==undefined)trainingPrograms=d.training;
+        if(d.recommendations!==undefined)recommendations=d.recommendations;
+        if(d.activityLog!==undefined)activityLog=d.activityLog;
+        if(d.notifications!==undefined)notifications=d.notifications;
+        renderAll();refreshCurrentView();break;
+      case"tna_tna_users":
+        if(evt.data.data.items!==undefined)appUsers=evt.data.data.items;
+        renderUsers();refreshCurrentView();break;
+      case"tna_tna_campusEval":
+        var ci=evt.data.data.items;
+        if(ci!==undefined){
+          Object.keys(ci).forEach(function(c){
+            if(!campusData[c])campusData[c]={};
+            Object.keys(ci[c]).forEach(function(k){campusData[c][k]=ci[c][k]});
+          });
+        }
+        renderAll();refreshCurrentView();break;
+    }
+  };
+}
+
+/* Firebase-aware data functions */
+async function firebaseLoadData(){
+  if(FIREBASE_ENABLED){await firebasePullAll()}
+}
+
+async function firebaseSaveData(){
+  if(FIREBASE_ENABLED){
+    await firebasePushAll();
+  }
+}
+
+/* ─── END FIREBASE FIRESTORE SYNC LAYER ─── */
 </script>
 </body>
 </html>
